@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+ 
+ <configuration>
+ 	<typeAliases>
+ 		<typeAlias type="com.rongda.model.User" alias="User"/>
+ 		<typeAlias type="com.rongda.model.CMS_USER" alias="cmsUser"/>
+ 		<typeAlias type="com.rongda.model.CMS_DXLM" alias="DXLM"/>
+ 		<typeAlias type="com.rongda.model.CMS_ZXLM" alias="cmsZxlm"/>
+ 		<typeAlias type="com.rongda.model.CMS_BZMC" alias="cmsBzmc"/>
+ 	</typeAliases>
+ 	<mappers>
+ 		<mapper resource="com/rongda/config/sql/User.xml"/>
+ 		<mapper resource="com/rongda/config/sql/CMS_USER.xml"/>
+ 		<mapper resource="com/rongda/config/sql/CMS_DXLM.xml"/>
+ 		<mapper resource="com/rongda/config/sql/CMS_ZXLM.xml"/>
+ 		<mapper resource="com/rongda/config/sql/CMS_BZMC.xml"/>
+ 	</mappers>
+ </configuration>

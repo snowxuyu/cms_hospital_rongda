@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>      
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"      
+     "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+     <mapper namespace="com.rongda.model.cmsuser">
+     	<resultMap type="cmsUser" id="cmsUserMap">
+     		<id column="YWXH" property="YWXH"/>
+     		<result column="YHXM" property="YHXM"/>
+     		<result column="GLYZH" property="GLYZH"/>
+     		<result column="GLYMM" property="GLYMM"/>
+     		<result column="SFKT" property="SFKT"/>
+     		<result column="KZ1" property="KZ1"/>
+     		<result column="KZ2" property="KZ2"/>
+     		<result column="KZ3" property="KZ3"/>
+     	</resultMap>
+     	
+     	<!-- 修改密码 -->
+     	<update id="update_usermm" parameterType="cmsUser">
+     		update CMS_USER set GLYMM = #{GLYMM} where YHXM=#{YHXM}
+     	</update>
+     	
+     	<!-- 根据主键查询管理员信息 -->
+     	<select id="load_userById" resultMap="cmsUserMap" parameterType="cmsUser">
+     		select * from CMS_USER where YWXH = #{YWXH}
+     	</select>
+     	
+     	<!-- 根据管理员名称查询管理员信息 -->
+     	
+     	<select id="load_userByUsername" resultMap="cmsUserMap" parameterType="cmsUser">
+     		select * from CMS_USER where GLYZH = #{GLYZH}
+     	</select>
+     </mapper>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>      
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"      
+     "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+     <mapper namespace="com.rongda.model.user">
+     	<resultMap type="User" id="userMap">
+     		<id column="id" property="id"/>
+     		<result column="username" property="username"/>
+     		<result column="password" property="password"/>
+     		<result column="phone" property="phone"/>
+     	</resultMap>
+     	
+     	<insert id="add_user" parameterType="User">
+     		insert into user(username, password,phone) values(#{username}, #{password}, #{phone});
+     	</insert>
+     	
+     	<delete id="delete_user" parameterType="User">
+     		delete from user where id = #{id}
+     	</delete>
+     	
+     	<update id="update_user" parameterType="User">
+     		update user set username = #{username}, password = #{password}, phone = #{phone} where id = #{id}
+     	</update>
+     	
+     	<select id="load_user" resultMap="userMap" parameterType="User">
+     		select * from user where id = #{id}
+     	</select>
+     	
+     	<select id="list_user" resultMap="userMap">
+     		select * from user
+     	</select>
+     </mapper>

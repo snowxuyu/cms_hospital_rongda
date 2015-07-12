@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>      
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"      
+     "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+     <mapper namespace="com.rongda.model.cmsDxlm">
+     	<resultMap type="DXLM" id="dxlmMap">
+     		<id column="YWXH" property="YWXH"/>
+     		<result column="LMFL" property="LMFL" jdbcType="CHAR" javaType="java.lang.Character"/>
+     		<result column="LMBT" property="LMBT" jdbcType="VARCHAR"/>
+     		<result column="LMNR" property="LMNR" jdbcType="VARCHAR"/>
+     		<result column="FBSJ" property="FBSJ" jdbcType="DATE"/>
+     		<result column="FBR" property="FBR" jdbcType="VARCHAR"/>
+     		<result column="KZ1" property="KZ1" jdbcType="VARCHAR"/>
+     		<result column="KZ2" property="KZ2" jdbcType="VARCHAR"/>
+     		<result column="KZ3" property="KZ3" jdbcType="VARCHAR"/>
+     		<result column="CJSJ" property="CJSJ" jdbcType="DATE"/>
+     		<result column="CJR" property="CJR" jdbcType="VARCHAR"/>
+     		<result column="XGSJ" property="XGSJ" jdbcType="DATE"/>
+     		<result column="XGR" property="XGR" jdbcType="VARCHAR"/>
+     		<result column="ZT" property="ZT" jdbcType="CHAR" javaType="java.lang.Character"/>
+     	</resultMap>
+     	
+     	<sql id="SEQ_TABLE">SEQ_DXLM_XH.NEXTVAL</sql>
+     	
+     	<insert id="add_dxlm" parameterType="DXLM">
+     		 <selectKey resultType="string" order="BEFORE" keyProperty="YWXH">
+		        select SEQ_DXLM_XH.NEXTVAL as YWXH from dual
+		    </selectKey>
+     		insert into CMS_DXLM(YWXH, LMFL, LMBT, LMNR, FBSJ, FBR, CJSJ, CJR, XGSJ, XGR, ZT) 
+     		 values(#{YWXH, jdbcType=VARCHAR}, #{LMFL, jdbcType=CHAR}, #{LMBT, jdbcType=VARCHAR},
+     		  #{LMNR, jdbcType=VARCHAR}, #{FBSJ, jdbcType=DATE}, #{FBR, jdbcType=VARCHAR}, 
+     		  #{CJSJ, jdbcType=DATE}, #{CJR, jdbcType=VARCHAR}, #{XGSJ ,jdbcType=DATE}, #{XGR, jdbcType=VARCHAR},
+     		  #{ZT, jdbcType=CHAR})
+     	</insert>
+     	
+     	<delete id="delete_dxlm" parameterType="DXLM">
+     		delete from CMS_DXLM where YWXH = #{YWXH}
+     	</delete>
+     	
+     	<update id="update_dxlm" parameterType="DXLM">
+     		update CMS_DXLM set LMFL = #{LMFL, jdbcType=CHAR}, LMBT = #{LMBT, jdbcType=VARCHAR}, LMNR = #{LMNR, jdbcType=VARCHAR},
+     		 FBSJ = #{FBSJ, jdbcType=DATE}, FBR = #{FBR, jdbcType=VARCHAR}, CJSJ = #{CJSJ, jdbcType=DATE}, 
+     		 CJR = #{CJR, jdbcType=VARCHAR}, XGSJ = #{XGSJ, jdbcType=DATE}, XGR = #{XGR, jdbcType=VARCHAR},
+     		  ZT = #{ZT, jdbcType=CHAR} where YWXH = #{YWXH}
+     	</update>
+     	
+     	<select id="load_dxlm" resultMap="dxlmMap" parameterType="DXLM">
+     		select * from CMS_DXLM where YWXH = #{YWXH} 
+     	</select>
+     	
+     	<select id="list_dxlm" resultMap="dxlmMap">
+     		select * from CMS_DXLM 
+     	</select>
+     	
+     	<select id="listByFL_dxlm" resultMap="dxlmMap" parameterType="DXLM">
+     		select rownum bh,a.* from CMS_DXLM a where a.LMFL =#{LMFL} ORDER BY a.CJSJ ASC
+     	</select>
+     	
+     </mapper>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="
+	    http://www.springframework.org/schema/mvc 
+		http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd
+	    http://www.springframework.org/schema/beans 
+	    http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+		http://www.springframework.org/schema/context 
+		http://www.springframework.org/schema/context/spring-context-3.1.xsd">
+
+	<mvc:view-controller path="/"
+		view-name="redirect:/cmsIndex/index" />
+		
+	<!-- 说明用注解的方式来完成配置 -->
+	<mvc:annotation-driven />
+	<!-- 将静态文件指定到某个特殊的文件夹中统一处理 -->
+	<mvc:resources location="/resources/" mapping="/resources/**" />
+	<mvc:resources location="/UserFiles/" mapping="/UserFiles/**" />
+	
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/**" />
+			<bean class="com.rongda.interceptor.SystemInterceptor">
+				<property name="allowUrls">
+					<list>
+						<value>/index</value>
+						<value>/query</value>
+						<value>/show</value>
+						<value>/images</value>
+						<value>/css</value>
+						<value>/qtlist</value>
+						<value>/UserFiles</value>
+						<value>/admin/login</value>
+						<value>/admin/no_login</value>
+					</list>
+				</property>
+			</bean>
+		</mvc:interceptor>
+	</mvc:interceptors>
+
+	<!-- 扫描包 -->
+	<context:component-scan base-package="com.rongda.controller" />
+	<!-- 设置JSP跳转路径 、前缀和后缀 -->
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/jsp/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+
+	<!-- 设置multipartResolver才能完成文件上传 -->
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="5000000"></property>
+	</bean>
+
+	<!-- 设置全局异常处理  -->
+	<bean id="exceptionResolver"
+		class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+		<property name="exceptionMappings">
+			<props>
+				<prop key="com.rongda.interceptor.SystemTimeoutException">redirect:/admin/no_login</prop>
+			</props>
+		</property>
+	</bean>
+</beans>	

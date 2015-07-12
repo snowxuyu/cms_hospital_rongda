@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"      
+     "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+     <mapper namespace="com.rongda.model.cmsbzmc">
+     	<resultMap type="cmsBzmc" id="CmsBzmcMap">
+     		<id column="YWXH" property="YWXH"/>
+     		<result column="XM" property="XM"/>
+     		<result column="DW" property="DW"/>
+     		<result column="DJ" property="DJ"/>
+     		<result column="CJSJ" property="CJSJ"/>
+     		<result column="CJR" property="CJR"/>
+     		<result column="XGSJ" property="XGSJ"/>
+     		<result column="XGR" property="XGR"/>
+     		<result column="ZT" property="ZT"/>
+     	</resultMap>
+     	
+     	<insert id="add_bzmc" parameterType="cmsBzmc">
+     		 <selectKey resultType="string" order="BEFORE" keyProperty="YWXH">
+		        select SEQ_DXLM_XH.NEXTVAL as YWXH from dual
+		    </selectKey>
+     		insert into CMS_BZMC(YWXH,XM,DW,DJ,CJSJ,CJR,ZT) values(#{YWXH}, #{XM},#{DW},#{DJ},#{CJSJ},
+     		#{CJR},#{ZT})
+     	</insert>
+     	
+     	<delete id="delete_bzmc" parameterType="cmsBzmc">
+     		delete from CMS_BZMC where YWXH = #{YWXH}
+     	</delete>
+     	
+     	<update id="update_bzmc" parameterType="cmsBzmc">
+     		update CMS_BZMC set XM= #{XM}, DW = #{DW} , DJ = #{DJ},XGSJ = #{XGSJ}  where YWXH = #{YWXH}
+     	</update>
+     	
+     	<select id="query_bzmc" resultMap="CmsBzmcMap" parameterType="cmsBzmc">
+     		select * from CMS_BZMC where YWXH = #{YWXH}
+     	</select>
+     	
+     	<select id="list_bzmc" resultMap="CmsBzmcMap">
+     		select * from CMS_BZMC
+     	</select>
+     </mapper>
